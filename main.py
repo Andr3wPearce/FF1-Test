@@ -19,11 +19,25 @@ for i in range(0,16):
 multD = pd.DataFrame(winners)
 print(multD)
 
-fig = plt.figure()
-ax = fig.add_axes([0,0,1,1])
+
 drivers = multD['Driver'].array
 wins = multD['1st'].array
-ax.bar(drivers, wins)
-plt.show()
-ax.bar(drivers, multD['2nd'].array)
+seconds = multD['2nd'].array
+
+x = np.arange(len(drivers))
+width=0.4
+
+fig, ax = plt.subplots()
+rects1 = ax.bar((x-width*2)/3, wins, width, label="Wins")
+rects2 = ax.bar(x, seconds, width, label="Second Place")
+
+ax.set_ylabel('# of times position acheived')
+ax.set_title("Frequency of Positions Scored by Drivers")
+ax.set_xticks(x)
+ax.set_xticklabels(drivers, fontsize=7)
+ax.legend()   
+ax.bar_label(rects1, padding=width*10)
+ax.bar_label(rects2, padding=width*10)
+fig.tight_layout()
+
 plt.show()
