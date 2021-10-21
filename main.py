@@ -16,28 +16,29 @@ for i in range(0,16):
   winners['2nd'][index]=winners['2nd'][index]+1
   index = winners['Driver'].index(result[2]['Driver']['code'])
   winners['3rd'][index]=winners['3rd'][index]+1
-multD = pd.DataFrame(winners)
-print(multD)
+dframe = pd.DataFrame(winners)
+print(dframe)
 
 
-drivers = multD['Driver'].array
-wins = multD['1st'].array
-seconds = multD['2nd'].array
+drivers=dframe.Driver
+first=dframe['1st'].array
+second=dframe['2nd'].array
+third=dframe['3rd'].array
 
 x = np.arange(len(drivers))
-width=0.4
-
+width = 0.3
+constshift=width/2
+plt.figure(figsize=(20, 3))
 fig, ax = plt.subplots()
-rects1 = ax.bar((x-width*2)/3, wins, width, label="Wins")
-rects2 = ax.bar(x, seconds, width, label="Second Place")
 
+rects1 = ax.bar((x-width)-constshift, first, width, label='Wins', align='edge')
+rects2 = ax.bar(x-constshift, second, width, label='Second Place',align='edge')
+rects3 = ax.bar((x+width)-constshift, third, width, label="Third Place",align='edge')
 ax.set_ylabel('# of times position acheived')
 ax.set_title("Frequency of Positions Scored by Drivers")
 ax.set_xticks(x)
 ax.set_xticklabels(drivers, fontsize=7)
 ax.legend()   
-ax.bar_label(rects1, padding=width*10)
-ax.bar_label(rects2, padding=width*10)
-fig.tight_layout()
+
 
 plt.show()
